@@ -1,0 +1,5842 @@
+{
+	"info": {
+		"_postman_id": "4f5e60b8-0d0a-4b5b-9e34-7a7f7c3a5e4a",
+		"name": "پنل ادمین - API",
+		"description": "مجموعه API های پنل ادمین",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+		"name": "مدیریت خدمات دهندگان",
+		"item": [
+			{
+			"name": "دریافت لیست خدمات دهندگان",
+			"request": {
+				"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+					"key": "token",
+					"value": "{{auth_token}}",
+					"type": "string"
+					}
+				]
+				},
+				"method": "GET",
+				"header": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"type": "text"
+				}
+				],
+				"url": {
+				"raw": "{{base_url}}/api/service-providers/list?type=all&status=all&page=1&limit=10&search=",
+				"host": ["{{base_url}}"],
+				"path": ["api", "service-providers", "list"],
+				"query": [
+					{
+					"key": "type",
+					"value": "all",
+					"description": "نوع خدمات‌دهنده (commercial/connectyar/all)"
+					},
+					{
+					"key": "status",
+					"value": "all",
+					"description": "وضعیت (active, inactive, pending, rejected, all)"
+					},
+					{
+					"key": "page",
+					"value": "1",
+					"description": "شماره صفحه"
+					},
+					{
+					"key": "limit",
+					"value": "10",
+					"description": "تعداد نتایج در هر صفحه"
+					},
+					{
+					"key": "search",
+					"value": "",
+					"description": "متن جستجو"
+					}
+				]
+				},
+				"description": "دریافت لیست خدمات دهندگان با قابلیت فیلتر بر اساس نوع، وضعیت و جستجو"
+			},
+			"response": []
+			},
+			{
+			"name": "دریافت جزئیات خدمات دهنده",
+			"request": {
+				"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+					"key": "token",
+					"value": "{{auth_token}}",
+					"type": "string"
+					}
+				]
+				},
+				"method": "GET",
+				"header": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"type": "text"
+				}
+				],
+				"url": {
+				"raw": "{{base_url}}/api/service-providers/{{provider_id}}",
+				"host": ["{{base_url}}"],
+				"path": ["api", "service-providers", "{{provider_id}}"]
+				},
+				"description": "دریافت جزئیات یک خدمات دهنده"
+			},
+			"response": []
+			},
+			{
+			"name": "تغییر وضعیت خدمات دهنده",
+			"request": {
+				"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+					"key": "token",
+					"value": "{{auth_token}}",
+					"type": "string"
+					}
+				]
+				},
+				"method": "PUT",
+				"header": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"type": "text"
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+				],
+				"body": {
+				"mode": "raw",
+				"raw": "{\n    \"status\": \"approved\",\n    \"comment\": \"حساب کاربری و مدارک شما تایید شده است.\"\n}"
+				},
+				"url": {
+				"raw": "{{base_url}}/api/service-providers/{{provider_id}}/status",
+				"host": ["{{base_url}}"],
+				"path": ["api", "service-providers", "{{provider_id}}", "status"]
+				},
+				"description": "تغییر وضعیت خدمات دهنده (تایید یا رد)"
+			},
+			"response": []
+			},
+			{
+			"name": "ثبت واحد صنفی جدید",
+			"request": {
+				"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+					"key": "token",
+					"value": "{{auth_token}}",
+					"type": "string"
+					}
+				]
+				},
+				"method": "POST",
+				"header": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"type": "text"
+				}
+				],
+				"body": {
+				"mode": "formdata",
+				"formdata": [
+					{
+					"key": "name",
+					"value": "نام واحد صنفی",
+					"type": "text"
+					},
+					{
+					"key": "owner_name",
+					"value": "نام مالک",
+					"type": "text"
+					},
+					{
+					"key": "phone",
+					"value": "09123456789",
+					"type": "text"
+					},
+					{
+					"key": "email",
+					"value": "email@example.com",
+					"type": "text"
+					},
+					{
+					"key": "address",
+					"value": "آدرس کامل",
+					"type": "text"
+					},
+					{
+					"key": "type",
+					"value": "commercial",
+					"type": "text"
+					},
+					{
+					"key": "license_image",
+					"type": "file",
+					"src": [],
+					"description": "تصویر جواز کسب"
+					}
+				]
+				},
+				"url": {
+				"raw": "{{base_url}}/api/service-providers",
+				"host": ["{{base_url}}"],
+				"path": ["api", "service-providers"]
+				},
+				"description": "ثبت واحد صنفی یا خدمات دهنده جدید"
+			},
+			"response": []
+			},
+			{
+			"name": "دانلود خروجی اکسل خدمات دهندگان",
+			"request": {
+				"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+					"key": "token",
+					"value": "{{auth_token}}",
+					"type": "string"
+					}
+				]
+				},
+				"method": "GET",
+				"header": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"type": "text"
+				}
+				],
+				"url": {
+				"raw": "{{base_url}}/api/export/service-providers?status=active&type=commercial&from_date=2023-01-01&to_date=2023-12-31",
+				"host": ["{{base_url}}"],
+				"path": ["api", "export", "service-providers"],
+				"query": [
+					{
+					"key": "status",
+					"value": "active",
+					"description": "وضعیت (active, inactive, pending, rejected, all)"
+					},
+					{
+					"key": "type",
+					"value": "commercial",
+					"description": "نوع خدمات‌دهنده (commercial/connectyar/all)"
+					},
+					{
+					"key": "from_date",
+					"value": "2023-01-01",
+					"description": "از تاریخ"
+					},
+					{
+					"key": "to_date",
+					"value": "2023-12-31",
+					"description": "تا تاریخ"
+					}
+				]
+				},
+				"description": "دانلود گزارش اکسل از خدمات دهندگان با قابلیت فیلتر"
+			},
+			"response": []
+			},
+			{
+			"name": "ارسال پیام به خدمات دهنده",
+			"request": {
+				"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+					"key": "token",
+					"value": "{{auth_token}}",
+					"type": "string"
+					}
+				]
+				},
+				"method": "POST",
+				"header": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"type": "text"
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+				],
+				"body": {
+				"mode": "raw",
+				"raw": "{\n    \"message\": \"متن پیام ارسالی به خدمات دهنده\",\n    \"subject\": \"موضوع پیام\"\n}"
+				},
+				"url": {
+				"raw": "{{base_url}}/api/service-providers/{{provider_id}}/send-message",
+				"host": ["{{base_url}}"],
+				"path": ["api", "service-providers", "{{provider_id}}", "send-message"]
+				},
+				"description": "ارسال پیام به یک خدمات دهنده"
+			},
+			"response": []
+			},
+			{
+			"name": "حذف حساب خدمات دهنده",
+			"request": {
+				"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+					"key": "token",
+					"value": "{{auth_token}}",
+					"type": "string"
+					}
+				]
+				},
+				"method": "DELETE",
+				"header": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"type": "text"
+				}
+				],
+				"url": {
+				"raw": "{{base_url}}/api/service-providers/{{provider_id}}",
+				"host": ["{{base_url}}"],
+				"path": ["api", "service-providers", "{{provider_id}}"]
+				},
+				"description": "حذف حساب یک خدمات دهنده"
+			},
+			"response": []
+			}
+		],
+		"description": "API های مربوط به مدیریت خدمات دهندگان (واحد صنفی و کانکت یار)"
+		},
+		{
+			"name": "احراز هویت",
+			"item": [
+				{
+					"name": "ورود به حساب کاربری",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"superadmin@example.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						},
+						"description": "ورود به حساب کاربری و دریافت توکن دسترسی"
+					},
+					"response": []
+				},
+				{
+					"name": "خروج از حساب کاربری",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"logout"
+							]
+						},
+						"description": "خروج از حساب کاربری و ابطال توکن"
+					},
+					"response": []
+				},
+				{
+					"name": "اطلاعات کاربر",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						},
+						"description": "دریافت اطلاعات کاربر لاگین شده"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به احراز هویت کاربران (ورود و خروج)"
+		},
+		{
+			"name": "داشبورد",
+			"item": [
+				{
+					"name": "اطلاعات پایه داشبورد",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/dashboard/info",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"info"
+							]
+						},
+						"description": "دریافت اطلاعات پایه داشبورد مانند تاریخ و زمان و نام سایت"
+					},
+					"response": []
+				},
+				{
+					"name": "آمار کلی",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/dashboard/stats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"stats"
+							]
+						},
+						"description": "دریافت آمار کلی تعداد کاربران، فروشندگان و سفارشات"
+					},
+					"response": []
+				},
+				{
+					"name": "گزارش تیکت‌ها",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/dashboard/tickets",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"tickets"
+							]
+						},
+						"description": "دریافت گزارش هفتگی تیکت‌ها"
+					},
+					"response": []
+				},
+				{
+					"name": "کاربران جدید",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/dashboard/new-users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"new-users"
+							]
+						},
+						"description": "دریافت 4 کاربر آخر ثبت نام شده"
+					},
+					"response": []
+				},
+				{
+					"name": "نمودار ثبت نام کاربران",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/dashboard/chart?period=week",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"chart"
+							],
+							"query": [
+								{
+									"key": "period",
+									"value": "week",
+									"description": "محدوده زمانی (week, month, quarter, year)"
+								}
+							]
+						},
+						"description": "دریافت نمودار ثبت نام کاربران در طول زمان"
+					},
+					"response": []
+				},
+				{
+					"name": "کل اطلاعات داشبورد",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/dashboard?period=week",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dashboard"
+							],
+							"query": [
+								{
+									"key": "period",
+									"value": "week",
+									"description": "محدوده زمانی نمودار (week, month, quarter, year)"
+								}
+							]
+						},
+						"description": "دریافت تمام اطلاعات داشبورد در یک درخواست"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به داشبورد"
+		},
+		{
+			"name": "پروفایل",
+			"item": [
+				{
+					"name": "دریافت اطلاعات پروفایل",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						},
+						"description": "دریافت اطلاعات پروفایل کاربر"
+					},
+					"response": []
+				},
+				{
+					"name": "به‌روزرسانی پروفایل",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "first_name",
+									"value": "مدیر",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "سایت",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "admin@example.com",
+									"type": "text"
+								},
+								{
+									"key": "profile_image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/profile/update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"update"
+							]
+						},
+						"description": "به‌روزرسانی اطلاعات پروفایل کاربر"
+					},
+					"response": []
+				},
+				{
+					"name": "تغییر رمز عبور",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"current_password\": \"password\",\n    \"password\": \"new_password\",\n    \"password_confirmation\": \"new_password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/profile/change-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"change-password"
+							]
+						},
+						"description": "تغییر رمز عبور کاربر"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به پروفایل کاربر"
+		},
+		{
+			"name": "جستجو",
+			"item": [
+				{
+					"name": "جستجو در سایت",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/search?query=test",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "test"
+								}
+							]
+						},
+						"description": "جستجو در تمام محتوای سایت"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به جستجو در سایت"
+		},
+		{
+			"name": "درخواست‌ها",
+			"item": [
+				{
+					"name": "لیست درخواست‌ها",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/requests",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"requests"
+							]
+						},
+						"description": "دریافت لیست درخواست‌ها"
+					},
+					"response": []
+				},
+				{
+					"name": "پردازش درخواست",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/requests/1/process",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"requests",
+								"1",
+								"process"
+							]
+						},
+						"description": "پردازش یک درخواست"
+					},
+					"response": []
+				},
+				{
+					"name": "حذف درخواست",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/requests/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"requests",
+								"1"
+							]
+						},
+						"description": "حذف یک درخواست"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به مدیریت درخواست‌ها"
+		},
+		{
+			"name": "نظرات خدمات‌دهندگان",
+			"item": [
+				{
+					"name": "دریافت نظرات تایید شده یک خدمات‌دهنده",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reviews/service-provider/{{serviceProviderId}}?per_page=10&sort_by=created_at&sort_order=desc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reviews",
+								"service-provider",
+								"{{serviceProviderId}}"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "10",
+									"description": "تعداد نظرات در هر صفحه"
+								},
+								{
+									"key": "sort_by",
+									"value": "created_at",
+									"description": "فیلد مرتب‌سازی"
+								},
+								{
+									"key": "sort_order",
+									"value": "desc",
+									"description": "ترتیب مرتب‌سازی"
+								}
+							]
+						},
+						"description": "دریافت نظرات تایید شده برای یک خدمات‌دهنده"
+					},
+					"response": []
+				},
+				{
+					"name": "بررسی امکان ثبت نظر",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reviews/can-submit?order_id={{orderId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reviews",
+								"can-submit"
+							],
+							"query": [
+								{
+									"key": "order_id",
+									"value": "{{orderId}}",
+									"description": "شناسه سفارش"
+								}
+							]
+						},
+						"description": "بررسی امکان ثبت نظر برای یک سفارش"
+					},
+					"response": []
+				},
+				{
+					"name": "ثبت نظر جدید",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"order_id\": 42,\n    \"rating\": 5,\n    \"comment\": \"خدمات بسیار عالی بود.\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reviews/submit",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reviews",
+								"submit"
+							]
+						},
+						"description": "ثبت نظر جدید برای خدمات‌دهنده"
+					},
+					"response": []
+				},
+				{
+					"name": "لیست نظرات (ادمین)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reviews/admin/list?status=pending&provider_id=3&per_page=15",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reviews",
+								"admin",
+								"list"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "pending",
+									"description": "وضعیت نظرات (pending, approved, rejected)"
+								},
+								{
+									"key": "provider_id",
+									"value": "3",
+									"description": "شناسه خدمات‌دهنده"
+								},
+								{
+									"key": "per_page",
+									"value": "15",
+									"description": "تعداد نظرات در هر صفحه"
+								}
+							]
+						},
+						"description": "دریافت لیست نظرات با امکان فیلتر (برای ادمین)"
+					},
+					"response": []
+				},
+				{
+					"name": "جزئیات نظر (ادمین)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reviews/admin/{{reviewId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reviews",
+								"admin",
+								"{{reviewId}}"
+							]
+						},
+						"description": "دریافت جزئیات یک نظر (برای ادمین)"
+					},
+					"response": []
+				},
+				{
+					"name": "تایید نظر (ادمین)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reviews/admin/{{reviewId}}/approve",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reviews",
+								"admin",
+								"{{reviewId}}",
+								"approve"
+							]
+						},
+						"description": "تایید یک نظر توسط ادمین"
+					},
+					"response": []
+				},
+				{
+					"name": "رد نظر (ادمین)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reason\": \"نظر حاوی محتوای نامناسب است.\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reviews/admin/{{reviewId}}/reject",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reviews",
+								"admin",
+								"{{reviewId}}",
+								"reject"
+							]
+						},
+						"description": "رد یک نظر توسط ادمین"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به مدیریت نظرات کاربران به خدمات‌دهندگان"
+		},
+		{
+			"name": "تنظیمات چت و کنترل اسپم",
+			"item": [
+				{
+					"name": "دریافت تنظیمات فعلی",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/settings/chat-filters",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"settings",
+								"chat-filters"
+							]
+						},
+						"description": "دریافت تنظیمات فعلی کنترل اسپم در چت"
+					},
+					"response": []
+				},
+				{
+					"name": "به‌روزرسانی تنظیمات",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"allow_chat_after_72_hours\": true,\n    \"prevent_bad_words\": false,\n    \"limit_reviews_per_user\": 10\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/settings/chat-filters",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"settings",
+								"chat-filters"
+							]
+						},
+						"description": "به‌روزرسانی تنظیمات کنترل اسپم در چت"
+					},
+					"response": []
+				},
+				{
+					"name": "بازنشانی تنظیمات به پیش‌فرض",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/settings/chat-filters/reset",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"settings",
+								"chat-filters",
+								"reset"
+							]
+						},
+						"description": "بازنشانی تنظیمات کنترل اسپم به مقادیر پیش‌فرض"
+					},
+					"response": []
+				},
+				{
+					"name": "بررسی پیام از نظر اسپم بودن",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"message\": \"این یک پیام تست است.\",\n    \"order_id\": 42\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/settings/check-message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"settings",
+								"check-message"
+							]
+						},
+						"description": "بررسی پیام از نظر اسپم بودن یا رعایت قوانین"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به تنظیمات کنترل اسپم و مدیریت چت"
+		},
+		{
+			"name": "مدیریت بنر و اسلایدر",
+			"item": [
+				{
+					"name": "دریافت فهرست آیتم‌ها",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/media-items?type=banner&active_only=false",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"media-items"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "banner",
+									"description": "نوع آیتم (banner یا slider)"
+								},
+								{
+									"key": "active_only",
+									"value": "false",
+									"description": "فقط آیتم‌های فعال نمایش داده شود"
+								}
+							]
+						},
+						"description": "دریافت فهرست آیتم‌های بنر یا اسلایدر"
+					},
+					"response": []
+				},
+				{
+					"name": "دریافت جزئیات یک آیتم",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/media-items/{{id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"media-items",
+								"{{id}}"
+							]
+						},
+						"description": "دریافت جزئیات یک آیتم بنر یا اسلایدر"
+					},
+					"response": []
+				},
+				{
+					"name": "ایجاد آیتم جدید",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "type",
+									"value": "banner",
+									"description": "نوع آیتم (banner یا slider)",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "تخفیف ویژه",
+									"description": "عنوان آیتم",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"description": "فایل تصویر (jpeg, png, jpg)",
+									"src": []
+								},
+								{
+									"key": "link",
+									"value": "http://example.com/special-offers",
+									"description": "لینک مقصد (اختیاری)",
+									"type": "text"
+								},
+								{
+									"key": "order",
+									"value": "1",
+									"description": "ترتیب نمایش",
+									"type": "text"
+								},
+								{
+									"key": "is_active",
+									"value": "true",
+									"description": "وضعیت فعال/غیرفعال",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/media-items",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"media-items"
+							]
+						},
+						"description": "ایجاد آیتم بنر یا اسلایدر جدید"
+					},
+					"response": []
+				},
+				{
+					"name": "به‌روزرسانی آیتم",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "تخفیف ویژه - به‌روزرسانی شده",
+									"description": "عنوان آیتم",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"description": "فایل تصویر جدید (اختیاری)",
+									"src": []
+								},
+								{
+									"key": "link",
+									"value": "http://example.com/updated-offers",
+									"description": "لینک مقصد",
+									"type": "text"
+								},
+								{
+									"key": "order",
+									"value": "2",
+									"description": "ترتیب نمایش",
+									"type": "text"
+								},
+								{
+									"key": "is_active",
+									"value": "true",
+									"description": "وضعیت فعال/غیرفعال",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/media-items/{{id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"media-items",
+								"{{id}}"
+							]
+						},
+						"description": "به‌روزرسانی یک آیتم بنر یا اسلایدر"
+					},
+					"response": []
+				},
+				{
+					"name": "حذف آیتم",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/media-items/{{id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"media-items",
+								"{{id}}"
+							]
+						},
+						"description": "حذف یک آیتم بنر یا اسلایدر"
+					},
+					"response": []
+				},
+				{
+					"name": "تغییر وضعیت فعال/غیرفعال",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"is_active\": false\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/media-items/{{id}}/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"media-items",
+								"{{id}}",
+								"status"
+							]
+						},
+						"description": "تغییر وضعیت فعال/غیرفعال یک آیتم بنر یا اسلایدر"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به مدیریت بنر و اسلایدر"
+		},
+		{
+			"name": "مدیریت مالی",
+			"item": [
+				{
+					"name": "خلاصه اطلاعات مالی",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/accounting/summary",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"accounting",
+								"summary"
+							]
+						},
+						"description": "دریافت خلاصه اطلاعات و آمار مالی سیستم"
+					},
+					"response": []
+				},
+				{
+					"name": "لیست تراکنش‌ها",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/accounting/transactions?type=withdrawal&status=pending&page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"accounting",
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "withdrawal",
+									"description": "نوع تراکنش (withdrawal, deposit)"
+								},
+								{
+									"key": "status",
+									"value": "pending",
+									"description": "وضعیت تراکنش (pending, approved, rejected, settled)"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						},
+						"description": "دریافت لیست تراکنش‌های مالی با قابلیت فیلتر"
+					},
+					"response": []
+				},
+				{
+					"name": "جزئیات تراکنش",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/accounting/transactions/{{transaction_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"accounting",
+								"transactions",
+								"{{transaction_id}}"
+							]
+						},
+						"description": "دریافت جزئیات یک تراکنش مالی"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به مدیریت مالی و حسابداری"
+		},
+		{
+			"name": "مدیریت سرویس‌ها",
+			"item": [
+				{
+					"name": "دریافت لیست سرویس‌ها",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/services?category_id=1&active_only=true",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"services"
+							],
+							"query": [
+								{
+									"key": "category_id",
+									"value": "1",
+									"description": "شناسه دسته‌بندی"
+								},
+								{
+									"key": "active_only",
+									"value": "true",
+									"description": "فقط سرویس‌های فعال"
+								}
+							]
+						},
+						"description": "دریافت لیست سرویس‌های موجود در سیستم"
+					},
+					"response": []
+				},
+				{
+					"name": "ایجاد سرویس جدید",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"نام خدمت\",\n    \"description\": \"توضیحات خدمت\",\n    \"category_id\": 1,\n    \"price\": 250000,\n    \"is_active\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/services",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"services"
+							]
+						},
+						"description": "ایجاد خدمت جدید در سیستم"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به مدیریت خدمات و سرویس‌ها"
+		},
+		{
+			"name": "مدیریت تیکت‌ها",
+			"item": [
+				{
+					"name": "دریافت لیست تیکت‌ها",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/tickets?status=open&page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tickets"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "open",
+									"description": "وضعیت تیکت (open, closed, pending)"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						},
+						"description": "دریافت لیست تیکت‌ها با قابلیت فیلتر بر اساس وضعیت"
+					},
+					"response": []
+				},
+				{
+					"name": "ایجاد تیکت جدید",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "subject",
+									"value": "موضوع تیکت",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "متن پیام تیکت",
+									"type": "text"
+								},
+								{
+									"key": "attachment",
+									"type": "file",
+									"src": [],
+									"description": "فایل پیوست (اختیاری)"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tickets",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tickets"
+							]
+						},
+						"description": "ایجاد تیکت پشتیبانی جدید"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به مدیریت تیکت‌های پشتیبانی"
+		},
+		{
+			"name": "اطلاعیه‌ها و قوانین",
+			"item": [
+				{
+					"name": "دریافت لیست اطلاعیه‌ها",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/notices?type=announcement&page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"notices"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "announcement",
+									"description": "نوع اطلاعیه (announcement, rules, guide)"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						},
+						"description": "دریافت لیست اطلاعیه‌ها با قابلیت فیلتر بر اساس نوع"
+					},
+					"response": []
+				},
+				{
+					"name": "ایجاد اطلاعیه جدید",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"عنوان اطلاعیه\",\n    \"content\": \"متن کامل اطلاعیه\",\n    \"type\": \"announcement\",\n    \"is_important\": true,\n    \"publish_at\": \"2023-10-01 08:00:00\",\n    \"expires_at\": \"2023-11-01 23:59:59\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notices",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"notices"
+							]
+						},
+						"description": "ایجاد اطلاعیه یا قانون جدید"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به مدیریت اطلاعیه‌ها و قوانین"
+		},
+		{
+			"name": "مدیریت کاربران پیشرفته",
+			"item": [
+				{
+					"name": "دریافت آمار کاربران",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/admin/users/stats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"users",
+								"stats"
+							]
+						},
+						"description": "دریافت آمار کلی کاربران سیستم"
+					},
+					"response": []
+				},
+				{
+					"name": "دریافت لیست نقش‌ها",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/user-management/roles",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user-management",
+								"roles"
+							]
+						},
+						"description": "دریافت لیست نقش‌های تعریف شده در سیستم"
+					},
+					"response": []
+				},
+				{
+					"name": "تغییر وضعیت کاربر",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"active\",\n    \"reason\": \"فعال‌سازی مجدد کاربر\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/user-management/{{userId}}/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user-management",
+								"{{userId}}",
+								"status"
+							]
+						},
+						"description": "تغییر وضعیت کاربر (فعال/غیرفعال)"
+					},
+					"response": []
+				},
+				{
+					"name": "تنظیمات امنیتی کاربر",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/account-security/login-settings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"account-security",
+								"login-settings"
+							]
+						},
+						"description": "دریافت تنظیمات امنیتی کاربر"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به مدیریت پیشرفته کاربران و نقش‌ها"
+		},
+		{
+			"name": "مدیریت خدمات‌دهندگان پیشرفته",
+			"item": [
+				{
+					"name": "دریافت لیست مدارک",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/service-providers/{{providerId}}/documents",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"service-providers",
+								"{{providerId}}",
+								"documents"
+							]
+						},
+						"description": "دریافت لیست مدارک یک خدمات‌دهنده"
+					},
+					"response": []
+				},
+				{
+					"name": "به‌روزرسانی وضعیت مدرک",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"approved\",\n    \"comment\": \"مدرک تایید شد\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/service-providers/{{providerId}}/documents/{{documentId}}/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"service-providers",
+								"{{providerId}}",
+								"documents",
+								"{{documentId}}",
+								"status"
+							]
+						},
+						"description": "تغییر وضعیت مدرک خدمات‌دهنده (تایید/رد)"
+					},
+					"response": []
+				},
+				{
+					"name": "نمودار فعالیت خدمات‌دهنده",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/service-providers/{{providerId}}/activity-chart",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"service-providers",
+								"{{providerId}}",
+								"activity-chart"
+							]
+						},
+						"description": "دریافت نمودار فعالیت خدمات‌دهنده"
+					},
+					"response": []
+				},
+				{
+					"name": "آمار عملکرد خدمات‌دهنده",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/service-providers/{{providerId}}/performance",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"service-providers",
+								"{{providerId}}",
+								"performance"
+							]
+						},
+						"description": "دریافت آمار عملکرد خدمات‌دهنده"
+					},
+					"response": []
+				},
+				{
+					"name": "دانلود گزارش مدارک",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/service-providers/documents/export?status=pending",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"service-providers",
+								"documents",
+								"export"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "pending",
+									"description": "وضعیت مدارک"
+								}
+							]
+						},
+						"description": "دانلود گزارش اکسل از مدارک خدمات‌دهندگان"
+					},
+					"response": []
+				}
+			],
+			"description": "API های پیشرفته مدیریت خدمات‌دهندگان، مدارک و عملکرد آن‌ها"
+		},
+		{
+			"name": "مدیریت محصولات و سفارشات",
+			"item": [
+				{
+					"name": "دریافت لیست محصولات",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/products?category_id=1&status=active&page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "category_id",
+									"value": "1",
+									"description": "شناسه دسته‌بندی"
+								},
+								{
+									"key": "status",
+									"value": "active",
+									"description": "وضعیت محصول"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						},
+						"description": "دریافت لیست محصولات با قابلیت فیلتر"
+					},
+					"response": []
+				},
+				{
+					"name": "محصولات در انتظار تایید",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/products/pending/list",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"pending",
+								"list"
+							]
+						},
+						"description": "دریافت لیست محصولات در انتظار تایید"
+					},
+					"response": []
+				},
+				{
+					"name": "به‌روزرسانی وضعیت تایید محصول",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"approved\",\n    \"comment\": \"محصول تایید شد\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/products/{{productId}}/approval",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"{{productId}}",
+								"approval"
+							]
+						},
+						"description": "تایید یا رد محصول"
+					},
+					"response": []
+				},
+				{
+					"name": "گفتگوهای یک سفارش",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/orders/messages/order/{{orderId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"messages",
+								"order",
+								"{{orderId}}"
+							]
+						},
+						"description": "دریافت گفتگوهای یک سفارش"
+					},
+					"response": []
+				},
+				{
+					"name": "ارسال پیام برای سفارش",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "message",
+									"value": "متن پیام",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": [],
+									"description": "فایل پیوست (اختیاری)"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/orders/messages/order/{{orderId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"messages",
+								"order",
+								"{{orderId}}"
+							]
+						},
+						"description": "ارسال پیام برای سفارش"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به مدیریت محصولات و سفارشات"
+		},
+		{
+			"name": "سیستم اشتراک",
+			"item": [
+				{
+					"name": "دریافت لیست طرح‌های اشتراک",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/subscription-plans?is_active=true&is_featured=false&search=",
+							"host": ["{{base_url}}"],
+							"path": ["api", "subscription-plans"],
+							"query": [
+								{
+									"key": "is_active",
+									"value": "true",
+									"description": "فیلتر طرح‌های فعال"
+								},
+								{
+									"key": "is_featured",
+									"value": "false",
+									"description": "فیلتر طرح‌های ویژه"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "جستجو در نام و توضیحات طرح"
+								}
+							]
+						},
+						"description": "دریافت لیست طرح‌های اشتراک با امکان فیلتر"
+					},
+					"response": []
+				},
+				{
+					"name": "ایجاد طرح اشتراک",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"طرح طلایی\",\n    \"description\": \"این طرح شامل امکانات ویژه است\",\n    \"price\": 1000000,\n    \"duration_days\": 30,\n    \"features\": [\"دسترسی به تمام بخش‌ها\", \"پشتیبانی VIP\"],\n    \"is_featured\": true,\n    \"is_active\": true,\n    \"max_users\": 5,\n    \"discount_percentage\": 10,\n    \"sort_order\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/subscription-plans",
+							"host": ["{{base_url}}"],
+							"path": ["api", "subscription-plans"]
+						},
+						"description": "ایجاد یک طرح اشتراک جدید (دسترسی ادمین)"
+					},
+					"response": []
+				},
+				{
+					"name": "دریافت جزئیات طرح اشتراک",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+							],
+						"url": {
+							"raw": "{{base_url}}/api/subscription-plans/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "subscription-plans", "1"]
+						},
+						"description": "دریافت جزئیات یک طرح اشتراک خاص"
+					},
+					"response": []
+				},
+				{
+					"name": "به‌روزرسانی طرح اشتراک",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"طرح طلایی ویژه\",\n    \"description\": \"این طرح شامل امکانات بسیار ویژه است\",\n    \"price\": 1200000,\n    \"duration_days\": 30,\n    \"features\": [\"دسترسی به تمام بخش‌ها\", \"پشتیبانی VIP\", \"اولویت در پردازش\"],\n    \"is_featured\": true,\n    \"is_active\": true,\n    \"discount_percentage\": 15\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/subscription-plans/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "subscription-plans", "1"]
+						},
+						"description": "به‌روزرسانی یک طرح اشتراک (دسترسی ادمین)"
+					},
+					"response": []
+				},
+				{
+					"name": "حذف طرح اشتراک",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/subscription-plans/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "subscription-plans", "1"]
+						},
+						"description": "حذف یک طرح اشتراک (اگر در حال استفاده نباشد)"
+					},
+					"response": []
+				},
+				{
+					"name": "خرید اشتراک",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"plan_id\": 1,\n    \"payment_id\": \"transaction-12345\",\n    \"auto_renew\": false\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions/subscribe",
+							"host": ["{{base_url}}"],
+							"path": ["api", "subscriptions", "subscribe"]
+						},
+						"description": "خرید اشتراک توسط کاربر"
+					},
+					"response": []
+				},
+				{
+					"name": "دریافت اشتراک فعلی کاربر",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+							],
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions/current",
+							"host": ["{{base_url}}"],
+							"path": ["api", "subscriptions", "current"]
+						},
+						"description": "دریافت اطلاعات اشتراک فعلی کاربر"
+					},
+					"response": []
+				},
+				{
+					"name": "لغو اشتراک",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions/1/cancel",
+							"host": ["{{base_url}}"],
+							"path": ["api", "subscriptions", "1", "cancel"]
+						},
+						"description": "لغو اشتراک توسط کاربر"
+					},
+					"response": []
+				},
+				{
+					"name": "تمدید اشتراک",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions/1/renew",
+							"host": ["{{base_url}}"],
+							"path": ["api", "subscriptions", "1", "renew"]
+						},
+						"description": "تمدید اشتراک کاربر (دسترسی ادمین)"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به مدیریت و خرید اشتراک"
+		},
+		{
+			"name": "سیستم ارجاع و پاداش",
+			"item": [
+				{
+					"name": "تنظیمات برنامه ارجاع",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/referrals/settings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"referrals",
+								"settings"
+							]
+						},
+						"description": "دریافت تنظیمات برنامه ارجاع"
+					},
+					"response": []
+				},
+				{
+					"name": "به‌روزرسانی تنظیمات برنامه ارجاع",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"referrer_reward\": 50000,\n    \"referred_reward\": 30000,\n    \"is_active\": true,\n    \"min_purchase_amount\": 200000\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/referrals/settings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"referrals",
+								"settings"
+							]
+						},
+						"description": "به‌روزرسانی تنظیمات برنامه ارجاع"
+					},
+					"response": []
+				},
+				{
+					"name": "ارجاعات من",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/referrals/my-referrals",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"referrals",
+								"my-referrals"
+							]
+						},
+						"description": "دریافت لیست ارجاعات کاربر"
+					},
+					"response": []
+				},
+				{
+					"name": "آمار ارجاعات",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/referrals/stats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"referrals",
+								"stats"
+							]
+						},
+						"description": "دریافت آمار ارجاعات سیستم"
+					},
+					"response": []
+				},
+				{
+					"name": "ایجاد کد ارجاع",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"custom_code\": \"MYCODE123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/referrals/generate-code",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"referrals",
+								"generate-code"
+							]
+						},
+						"description": "ایجاد کد ارجاع جدید"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به سیستم ارجاع و پاداش"
+		},
+		{
+			"name": "سیستم رزرو",
+			"item": [
+				{
+					"name": "دریافت لیست رزروها",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reservations?status=pending&page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reservations"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "pending",
+									"description": "وضعیت رزرو"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						},
+						"description": "دریافت لیست رزروها با قابلیت فیلتر"
+					},
+					"response": []
+				},
+				{
+					"name": "تایید رزرو",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"approved\",\n    \"admin_comment\": \"رزرو تایید شد\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations/{{reservationId}}/approve",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reservations",
+								"{{reservationId}}",
+								"approve"
+							]
+						},
+						"description": "تایید یا رد رزرو"
+					},
+					"response": []
+				},
+				{
+					"name": "جزئیات رزرو",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reservations/{{reservationId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reservations",
+								"{{reservationId}}"
+							]
+						},
+						"description": "دریافت جزئیات یک رزرو"
+					},
+					"response": []
+				},
+				{
+					"name": "دانلود گزارش رزروها",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reservations/export",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reservations",
+								"export"
+							]
+						},
+						"description": "دانلود گزارش اکسل از رزروها"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به مدیریت رزرو"
+		},
+		{
+			"name": "سیستم استرداد وجه",
+			"item": [
+				{
+					"name": "ثبت درخواست استرداد",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"order_id\": 123,\n    \"reason\": \"دلیل درخواست استرداد\",\n    \"refund_method\": \"wallet\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/refunds/request",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"refunds",
+								"request"
+							]
+						},
+						"description": "ثبت درخواست استرداد وجه"
+					},
+					"response": []
+				},
+				{
+					"name": "پردازش درخواست استرداد",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"transaction_id\": 456,\n    \"status\": \"approved\",\n    \"admin_comment\": \"استرداد تایید شد\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/refunds/process",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"refunds",
+								"process"
+							]
+						},
+						"description": "پردازش درخواست استرداد توسط ادمین"
+					},
+					"response": []
+				},
+				{
+					"name": "استردادهای کاربر",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/refunds/user/{{userId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"refunds",
+								"user",
+								"{{userId}}"
+							]
+						},
+						"description": "دریافت استردادهای کاربر"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به مدیریت استرداد وجه"
+		},
+		{
+			"name": "مدیریت نقش‌ها و دسترسی‌ها",
+			"item": [
+				{
+					"name": "دریافت لیست نقش‌ها",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/user-management/roles",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user-management",
+								"roles"
+							]
+						},
+						"description": "دریافت لیست نقش‌های تعریف شده در سیستم"
+					},
+					"response": []
+				},
+				{
+					"name": "ایجاد نقش جدید",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"content-manager\",\n    \"display_name\": \"مدیر محتوا\",\n    \"description\": \"دسترسی به مدیریت محتوای سایت\",\n    \"permissions\": [\"notices.view\", \"notices.create\", \"notices.edit\", \"media.view\", \"media.create\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/user-management/roles",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user-management",
+								"roles"
+							]
+						},
+						"description": "ایجاد نقش جدید با دسترسی‌های مشخص"
+					},
+					"response": []
+				},
+				{
+					"name": "دریافت لیست دسترسی‌ها",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/user-management/permissions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user-management",
+								"permissions"
+							]
+						},
+						"description": "دریافت لیست تمام دسترسی‌های موجود در سیستم"
+					},
+					"response": []
+				},
+				{
+					"name": "به‌روزرسانی نقش",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"display_name\": \"مدیر محتوا سایت\",\n    \"description\": \"دسترسی به مدیریت محتوای وبسایت\",\n    \"permissions\": [\"notices.view\", \"notices.create\", \"notices.edit\", \"media.view\", \"media.create\", \"media.edit\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/user-management/roles/{{role_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user-management",
+								"roles",
+								"{{role_id}}"
+							]
+						},
+						"description": "به‌روزرسانی اطلاعات و دسترسی‌های یک نقش"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به مدیریت نقش‌ها و دسترسی‌های کاربران"
+		},
+		{
+			"name": "مدیریت کدهای تخفیف",
+			"item": [
+				{
+					"name": "دریافت لیست کدهای تخفیف",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/discount-codes?active_only=true&page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"discount-codes"
+							],
+							"query": [
+								{
+									"key": "active_only",
+									"value": "true",
+									"description": "فقط کدهای تخفیف فعال"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						},
+						"description": "دریافت لیست کدهای تخفیف تعریف شده در سیستم"
+					},
+					"response": []
+				},
+				{
+					"name": "ایجاد کد تخفیف جدید",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\": \"SUMMER1402\",\n    \"discount_type\": \"percentage\",\n    \"discount_value\": 20,\n    \"max_uses\": 100,\n    \"expires_at\": \"2023-09-22 23:59:59\",\n    \"minimum_order\": 50000,\n    \"maximum_discount\": 200000,\n    \"product_ids\": [],\n    \"plan_ids\": [1, 2],\n    \"description\": \"کد تخفیف ویژه تابستان 1402\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/discount-codes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"discount-codes"
+							]
+						},
+						"description": "ایجاد کد تخفیف جدید در سیستم"
+					},
+					"response": []
+				},
+				{
+					"name": "اعتبارسنجی کد تخفیف",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\": \"SUMMER1402\",\n    \"product_id\": null,\n    \"plan_id\": 1,\n    \"order_total\": 320000\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/discount-codes/validate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"discount-codes",
+								"validate"
+							]
+						},
+						"description": "بررسی اعتبار کد تخفیف برای استفاده"
+					},
+					"response": []
+				},
+				{
+					"name": "گزارش استفاده کد تخفیف",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/discount-codes/usage-report?code=SUMMER1402&start_date=2023-06-01&end_date=2023-09-22",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"discount-codes",
+								"usage-report"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "SUMMER1402"
+								},
+								{
+									"key": "start_date",
+									"value": "2023-06-01"
+								},
+								{
+									"key": "end_date",
+									"value": "2023-09-22"
+								}
+							]
+						},
+						"description": "دریافت گزارش استفاده از کدهای تخفیف"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به مدیریت کدهای تخفیف"
+		},
+		{
+			"name": "امنیت حساب کاربری",
+			"item": [
+				{
+					"name": "دریافت تنظیمات امنیتی",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/account-security/login-settings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"account-security",
+								"login-settings"
+							]
+						},
+						"description": "دریافت تنظیمات امنیتی حساب کاربری"
+					},
+					"response": []
+				},
+				{
+					"name": "به‌روزرسانی تنظیمات امنیتی",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"two_factor_enabled\": true,\n    \"two_factor_method\": \"email\",\n    \"remember_devices\": true,\n    \"notify_on_login\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/account-security/login-settings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"account-security",
+								"login-settings"
+							]
+						},
+						"description": "به‌روزرسانی تنظیمات امنیتی حساب کاربری"
+					},
+					"response": []
+				},
+				{
+					"name": "دریافت لیست دستگاه‌ها",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/account-security/devices",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"account-security",
+								"devices"
+							]
+						},
+						"description": "دریافت لیست دستگاه‌هایی که با حساب کاربری وارد شده‌اند"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به امنیت حساب کاربری"
+		},
+		{
+			"name": "سیستم خرید",
+			"item": [
+				{
+					"name": "دریافت لیست خرید‌ها",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/purchases?status=pending&page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "pending",
+									"description": "وضعیت خرید (pending, approved, rejected)"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						},
+						"description": "دریافت لیست خریدهای ثبت شده در سیستم"
+					},
+					"response": []
+				},
+				{
+					"name": "تایید خرید",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"approved\",\n    \"admin_note\": \"خرید تایید و پردازش شد\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/purchases/{{purchase_id}}/approve",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"purchases",
+								"{{purchase_id}}",
+								"approve"
+							]
+						},
+						"description": "تایید یک خرید"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به سیستم خرید"
+		},
+		{
+			"name": "مدیریت اطلاعیه‌ها",
+			"item": [
+				{
+					"name": "دریافت شمار اطلاعیه‌های خوانده نشده",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/notices/unread/count",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"notices",
+								"unread",
+								"count"
+							]
+						},
+						"description": "دریافت تعداد اطلاعیه‌های خوانده نشده برای کاربر فعلی"
+					},
+					"response": []
+				},
+				{
+					"name": "انتشار اطلاعیه",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"publish_at\": \"2023-08-10 12:00:00\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notices/{{notice_id}}/publish",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"notices",
+								"{{notice_id}}",
+								"publish"
+							]
+						},
+						"description": "انتشار یک اطلاعیه که قبلاً در حالت پیش‌نویس بوده است"
+					},
+					"response": []
+				},
+				{
+					"name": "بایگانی اطلاعیه",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/notices/{{notice_id}}/archive",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"notices",
+								"{{notice_id}}",
+								"archive"
+							]
+						},
+						"description": "بایگانی کردن یک اطلاعیه"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به مدیریت اطلاعیه‌ها و قوانین سایت"
+		},
+		{
+			"name": "سیستم ارجاع و معرفی دوستان",
+			"item": [
+				{
+					"name": "دریافت تنظیمات سیستم ارجاع",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/referrals/settings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"referrals",
+								"settings"
+							]
+						},
+						"description": "دریافت تنظیمات فعلی سیستم دعوت و ارجاع دوستان"
+					},
+					"response": []
+				},
+				{
+					"name": "به‌روزرسانی تنظیمات سیستم ارجاع",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"برنامه معرفی دوستان تابستان 1402\",\n    \"reward_type\": \"percentage\",\n    \"reward_amount\": 10,\n    \"referrer_reward\": 5000,\n    \"referred_reward\": 2000,\n    \"expiry_days\": 30,\n    \"is_active\": true,\n    \"description\": \"برنامه ویژه معرفی دوستان با جوایز ویژه\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/referrals/settings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"referrals",
+								"settings"
+							]
+						},
+						"description": "به‌روزرسانی تنظیمات سیستم دعوت دوستان"
+					},
+					"response": []
+				},
+				{
+					"name": "تولید کد دعوت",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/referrals/generate-code",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"referrals",
+								"generate-code"
+							]
+						},
+						"description": "تولید یک کد دعوت جدید برای کاربر فعلی"
+					},
+					"response": []
+				},
+				{
+					"name": "پذیرش دعوت",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"referral_code\": \"ABCD1234\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/referrals/accept",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"referrals",
+								"accept"
+							]
+						},
+						"description": "پذیرش یک کد دعوت توسط کاربر جدید"
+					},
+					"response": []
+				},
+				{
+					"name": "ارجاع‌های من",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/referrals/my-referrals",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"referrals",
+								"my-referrals"
+							]
+						},
+						"description": "دریافت لیست کاربرانی که توسط کاربر فعلی دعوت شده‌اند"
+					},
+					"response": []
+				},
+				{
+					"name": "آمار ارجاع‌های من",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/referrals/my-stats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"referrals",
+								"my-stats"
+							]
+						},
+						"description": "دریافت آمار و اطلاعات ارجاع‌های کاربر فعلی"
+					},
+					"response": []
+				},
+				{
+					"name": "گزارش کلی ارجاع‌ها",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/referrals/report?status=completed&start_date=2023-01-01&end_date=2023-12-31",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"referrals",
+								"report"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "completed",
+									"description": "وضعیت (pending, completed, cancelled)"
+								},
+								{
+									"key": "start_date",
+									"value": "2023-01-01"
+								},
+								{
+									"key": "end_date",
+									"value": "2023-12-31"
+								}
+							]
+						},
+						"description": "دریافت گزارش کامل سیستم ارجاع با امکان فیلتر (مخصوص ادمین)"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به سیستم ارجاع و معرفی دوستان"
+		},
+		{
+			"name": "مدیریت اشتراک‌ها",
+			"item": [
+				{
+					"name": "دریافت لیست پلن‌های اشتراک",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions?is_active=true&sort_field=sort_order&sort_direction=asc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subscriptions"
+							],
+							"query": [
+								{
+									"key": "is_active",
+									"value": "true"
+								},
+								{
+									"key": "sort_field",
+									"value": "sort_order"
+								},
+								{
+									"key": "sort_direction",
+									"value": "asc"
+								}
+							]
+						},
+						"description": "دریافت لیست پلن‌های اشتراک با قابلیت فیلتر"
+					},
+					"response": []
+				},
+				{
+					"name": "ایجاد پلن اشتراک جدید",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"اشتراک طلایی\",\n    \"description\": \"دسترسی کامل به تمام خدمات به مدت یک سال\",\n    \"price\": 1200000,\n    \"duration_days\": 365,\n    \"features\": [\"خدمت الف\", \"خدمت ب\", \"خدمت ج\"],\n    \"is_featured\": true,\n    \"is_active\": true,\n    \"max_users\": 5,\n    \"discount_percentage\": 10,\n    \"sort_order\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subscriptions"
+							]
+						},
+						"description": "ایجاد یک پلن اشتراک جدید (مخصوص ادمین)"
+					},
+					"response": []
+				},
+				{
+					"name": "خرید اشتراک",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"plan_id\": 2,\n    \"payment_method\": \"online\",\n    \"discount_code\": \"WELCOME10\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions/subscribe",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"subscribe"
+							]
+						},
+						"description": "خرید یک اشتراک جدید برای کاربر"
+					},
+					"response": []
+				},
+				{
+					"name": "اشتراک فعلی",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions/current",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"current"
+							]
+						},
+						"description": "دریافت اطلاعات اشتراک فعلی کاربر"
+					},
+					"response": []
+				},
+				{
+					"name": "لغو اشتراک",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reason\": \"تغییر پلن اشتراک\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions/{{subscription_id}}/cancel",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"{{subscription_id}}",
+								"cancel"
+							]
+						},
+						"description": "لغو یک اشتراک"
+					},
+					"response": []
+				},
+				{
+					"name": "تمدید اشتراک",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_method\": \"wallet\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions/{{subscription_id}}/renew",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"{{subscription_id}}",
+								"renew"
+							]
+						},
+						"description": "تمدید یک اشتراک موجود"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به مدیریت اشتراک‌ها و پلن‌ها"
+		},
+		{
+			"name": "کانکت‌یار و خدمات تخصصی",
+			"item": [
+				{
+					"name": "جزئیات کانکت‌یار",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/service-providers/connectyar/{{provider_id}}/details",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"service-providers",
+								"connectyar",
+								"{{provider_id}}",
+								"details"
+							]
+						},
+						"description": "دریافت اطلاعات تخصصی کانکت‌یار"
+					},
+					"response": []
+				},
+				{
+					"name": "آمار عملکرد کانکت‌یار",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/service-providers/{{provider_id}}/performance",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"service-providers",
+								"{{provider_id}}",
+								"performance"
+							]
+						},
+						"description": "دریافت آمار عملکرد کانکت‌یار"
+					},
+					"response": []
+				},
+				{
+					"name": "دریافت مناطق خدمت‌رسانی",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/service-providers/{{provider_id}}/service-areas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"service-providers",
+								"{{provider_id}}",
+								"service-areas"
+							]
+						},
+						"description": "دریافت مناطق جغرافیایی خدمت‌رسانی کانکت‌یار"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به سرویس کانکت‌یار و خدمات تخصصی"
+		},
+		{
+			"name": "احراز هویت پیشرفته",
+			"item": [
+				{
+					"name": "ارسال کد یکبار مصرف ایمیل",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/send-email-otp",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"send-email-otp"
+							]
+						},
+						"description": "ارسال کد یکبار مصرف به ایمیل کاربر"
+					},
+					"response": []
+				},
+				{
+					"name": "ارسال کد یکبار مصرف پیامکی",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone\": \"09120001122\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/send-sms-otp",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"send-sms-otp"
+							]
+						},
+						"description": "ارسال کد یکبار مصرف به شماره موبایل کاربر"
+					},
+					"response": []
+				},
+				{
+					"name": "باز کردن حساب قفل شده",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"identifier\": \"user@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/users/unlock-account",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"users",
+								"unlock-account"
+							]
+						},
+						"description": "باز کردن حساب قفل شده کاربر توسط ادمین"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به احراز هویت پیشرفته و امنیت"
+		},
+		{
+			"name": "گزارش‌های پیشرفته",
+			"item": [
+				{
+					"name": "گزارش ارجاعات",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/referrals/report?status=completed&start_date=2023-01-01&end_date=2023-12-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "referrals", "report"],
+							"query": [
+								{
+									"key": "status",
+									"value": "completed",
+									"description": "وضعیت (pending, completed, cancelled)"
+								},
+								{
+									"key": "start_date",
+									"value": "2023-01-01"
+								},
+								{
+									"key": "end_date",
+									"value": "2023-12-31"
+								}
+							]
+						},
+						"description": "دریافت گزارش کامل سیستم ارجاع با امکان فیلتر (مخصوص ادمین)"
+					},
+					"response": []
+				},
+				{
+					"name": "گزارش استفاده از کدهای تخفیف",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/discount-codes/usage-report?discount_code_id=1&from_date=2023-01-01&to_date=2023-06-30",
+							"host": ["{{base_url}}"],
+							"path": ["api", "discount-codes", "usage-report"],
+							"query": [
+								{
+									"key": "discount_code_id",
+									"value": "1",
+									"description": "شناسه کد تخفیف"
+								},
+								{
+									"key": "from_date",
+									"value": "2023-01-01"
+								},
+								{
+									"key": "to_date",
+									"value": "2023-06-30"
+								}
+							]
+						},
+						"description": "گزارش استفاده از کدهای تخفیف"
+					},
+					"response": []
+				},
+				{
+					"name": "دانلود گزارش مدارک",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/service-providers/documents/export?status=pending&from_date=2023-01-01&to_date=2023-06-30",
+							"host": ["{{base_url}}"],
+							"path": ["api", "service-providers", "documents", "export"],
+							"query": [
+								{
+									"key": "status",
+									"value": "pending",
+									"description": "وضعیت مدارک"
+								},
+								{
+									"key": "from_date",
+									"value": "2023-01-01"
+								},
+								{
+									"key": "to_date",
+									"value": "2023-06-30"
+								}
+							]
+						},
+						"description": "دانلود گزارش اکسل از مدارک خدمات‌دهندگان"
+					},
+					"response": []
+				},
+				{
+					"name": "دانلود گزارش خدمات",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/export/services?filter=active&category_id=1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "export", "services"],
+							"query": [
+								{
+									"key": "filter",
+									"value": "active",
+									"description": "فیلتر وضعیت (active, inactive)"
+								},
+								{
+									"key": "category_id",
+									"value": "1",
+									"description": "شناسه دسته‌بندی"
+								}
+							]
+						},
+						"description": "دانلود گزارش اکسل از خدمات"
+					},
+					"response": []
+				},
+				{
+					"name": "دانلود گزارش خدمات‌دهندگان",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/export/service-providers",
+							"host": ["{{base_url}}"],
+							"path": ["api", "export", "service-providers"]
+						},
+						"description": "دانلود گزارش اکسل از خدمات‌دهندگان"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به گزارش‌های پیشرفته و نمودارها"
+		},
+		{
+			"name": "سیستم تایید ایمیل و شماره تلفن",
+			"item": [
+				{
+					"name": "ارسال کد تایید ایمیل",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/send-email-otp",
+							"host": ["{{base_url}}"],
+							"path": ["api", "send-email-otp"]
+						},
+						"description": "ارسال کد تایید یکبار مصرف به ایمیل کاربر"
+					},
+					"response": []
+				},
+				{
+					"name": "تایید کد ایمیل",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@example.com\",\n    \"code\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/verify-email-otp",
+							"host": ["{{base_url}}"],
+							"path": ["api", "verify-email-otp"]
+						},
+						"description": "تایید کد یکبار مصرف ایمیلی"
+					},
+					"response": []
+				},
+				{
+					"name": "ارسال کد تایید به شماره موبایل",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone\": \"09123456789\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/send-sms-otp",
+							"host": ["{{base_url}}"],
+							"path": ["api", "send-sms-otp"]
+						},
+						"description": "ارسال کد تایید یکبار مصرف به شماره موبایل کاربر"
+					},
+					"response": []
+				},
+				{
+					"name": "تایید کد پیامکی",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone\": \"09123456789\",\n    \"code\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/verify-sms-otp",
+							"host": ["{{base_url}}"],
+							"path": ["api", "verify-sms-otp"]
+						},
+						"description": "تایید کد یکبار مصرف پیامکی"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به سیستم تایید ایمیل و شماره تلفن"
+		},
+		{
+			"name": "خدمات کانکت‌یار",
+			"item": [
+				{
+					"name": "دریافت لیست کانکت‌یارها",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/service-providers/list?type=connectyar&status=active&limit=10&search=",
+							"host": ["{{base_url}}"],
+							"path": ["api", "service-providers", "list"],
+							"query": [
+								{
+									"key": "type",
+									"value": "connectyar",
+									"description": "نوع خدمات‌دهنده (commercial/connectyar)"
+								},
+								{
+									"key": "status",
+									"value": "active",
+									"description": "وضعیت (active, inactive, pending, rejected)"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "تعداد نتایج در هر صفحه"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "متن جستجو"
+								}
+							]
+						},
+						"description": "دریافت لیست کانکت‌یارها با قابلیت فیلتر"
+					},
+					"response": []
+				},
+				{
+					"name": "جزئیات کانکت‌یار",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/service-providers/connectyar/{{provider_id}}/details",
+							"host": ["{{base_url}}"],
+							"path": ["api", "service-providers", "connectyar", "{{provider_id}}", "details"]
+						},
+						"description": "دریافت اطلاعات تخصصی کانکت‌یار"
+					},
+					"response": []
+				},
+				{
+					"name": "دریافت مناطق خدمت‌رسانی",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/service-providers/{{provider_id}}/service-areas",
+							"host": ["{{base_url}}"],
+							"path": ["api", "service-providers", "{{provider_id}}", "service-areas"]
+						},
+						"description": "دریافت مناطق جغرافیایی خدمت‌رسانی کانکت‌یار"
+					},
+					"response": []
+				},
+				{
+					"name": "تعیین وضعیت دسترسی کانکت‌یار",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"availability_status\": \"available\",\n    \"available_until\": \"2023-08-31 18:00:00\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/service-providers/connectyar/availability",
+							"host": ["{{base_url}}"],
+							"path": ["api", "service-providers", "connectyar", "availability"]
+						},
+						"description": "تنظیم وضعیت در دسترس بودن کانکت‌یار"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به خدمات تخصصی کانکت‌یار"
+		},
+		{
+			"name": "امنیت حساب کاربری پیشرفته",
+			"item": [
+				{
+					"name": "دریافت تنظیمات امنیتی",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/account-security/login-settings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"account-security",
+								"login-settings"
+							]
+						},
+						"description": "دریافت تنظیمات امنیتی حساب کاربری"
+					},
+					"response": []
+				},
+				{
+					"name": "به‌روزرسانی تنظیمات امنیتی",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"two_factor_enabled\": true,\n    \"two_factor_method\": \"email\",\n    \"remember_devices\": true,\n    \"notify_on_login\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/account-security/login-settings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"account-security",
+								"login-settings"
+							]
+						},
+						"description": "به‌روزرسانی تنظیمات امنیتی حساب کاربری"
+					},
+					"response": []
+				},
+				{
+					"name": "دریافت لیست دستگاه‌ها",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/account-security/devices",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"account-security",
+								"devices"
+							]
+						},
+						"description": "دریافت لیست دستگاه‌هایی که با حساب کاربری وارد شده‌اند"
+					},
+					"response": []
+				},
+				{
+					"name": "باز کردن حساب قفل شده",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"identifier\": \"user@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/users/unlock-account",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"users",
+								"unlock-account"
+							]
+						},
+						"description": "باز کردن حساب قفل شده کاربر توسط ادمین"
+					},
+					"response": []
+				}
+			],
+			"description": "API های مربوط به امنیت پیشرفته حساب کاربری"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "auth_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+	
+}
+
